@@ -11,7 +11,7 @@ import EditFormModal from './EditFormModal';
 /* TODO: Create a component called `BestBooks` that renders a Carousel of all the books in your database */
 function BestBooks() {
 
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState([]); // let books = []
   const [show, setShow] = useState(false);
   const [editShow, setEditShow] = useState(false);
   const [editBook, setEditBook] = useState(null);
