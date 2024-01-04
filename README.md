@@ -5,7 +5,7 @@
 
 ## Overview
 
-Books possess a transformative essence, shaping minds, imparting wisdom, providing solace, and fostering growth. The Can of Books API serves as the backbone of Can of Books, managing all interactions with the API and database.
+An interactive web application designed to catalog your beloved books. Users can effortlessly input titles and descriptions, edit or delete entries, and keep their collection organized.
 
 ## Getting Started
 
