@@ -7,6 +7,7 @@ export default function EditFormModal(props) {
 
   async function editBook(book) {
     try {
+      // update to new url 
       const response = await axios.put(`https://can-of-books-api-nr7r.onrender.com/books/${props.book._id}`, book);
       props.setBooks((prevBooks) => {
         return prevBooks.map((prevBook) => {
