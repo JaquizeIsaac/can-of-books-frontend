@@ -11,6 +11,10 @@ import {
   Route
 } from "react-router-dom";
 
+const SERVER = import.meta.env.VITE_SERVER_URL;
+
+
+// const SERVER = import.meta.env.VITE_SERVER_URL;
 class App extends React.Component {
   render() {
     return (

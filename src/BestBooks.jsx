@@ -9,6 +9,7 @@ import Alert from 'react-bootstrap/Alert';
 import EditFormModal from './EditFormModal';
 
 /* TODO: Create a component called `BestBooks` that renders a Carousel of all the books in your database */
+const SERVER = import.meta.env.VITE_SERVER_URL;
 function BestBooks() {
 
   const [books, setBooks] = useState([]); // let books = []
@@ -19,11 +20,12 @@ function BestBooks() {
   const [loadingBooks, setLoadingBooks] = useState(true);
   const [, setForceRerender] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
-
+ 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
+
   async function getBooks() {
     try {
-      const response = await axios.get('https://can-of-books-api-nr7r.onrender.com/books');
+      const response = await axios.get(`${SERVER}/books`);
       setBooks(response.data);
       setLoadingBooks(false);
       setForceRerender({}); 
@@ -34,30 +36,43 @@ function BestBooks() {
     }
 
   }
-  async function handleRemove(id) {
-    try {
-      const indexToRemove = books.findIndex((book) => book._id === id);
-      const nextIndex = Math.min(indexToRemove, books.length - 2);
-      setActiveIndex(nextIndex);
+  // async function handleRemove(id) {
+  //   try {
+  //     // const indexToRemove = books.findIndex((book) => book._id === id);
+  //     // const nextIndex = Math.min(indexToRemove, books.length - 2);
+  //     // setActiveIndex(nextIndex);
 
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book._id === id ? { ...book, loading: true } : book
-        )
-      );
-      await axios.delete(`https://can-of-books-api-nr7r.onrender.com/books/${id}`);
-      const updatedBooks = books.filter((book) => book._id !== id);
-      setBooks(updatedBooks);
-    } catch (error) {
-      console.log(error);
-      setError('Failed to remove the book.');
-      setBooks((prevBooks) =>
-        prevBooks.map((book) =>
-          book._id === id ? { ...book, loading: false } : book
-        )
-      );
-    }
+  //     // setBooks((prevBooks) =>
+  //     //   prevBooks.map((book) =>
+  //     //     book._id === id ? { ...book, loading: true } : book
+  //     //   )
+  //     // );
+  //     // update to new url 
+  //     await axios.delete(`${SERVER}/books/${id}`);
+  //     const updatedBooks = books.filter((book) => book._id !== id);
+  //     setBooks(updatedBooks);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setError('Failed to remove the book.');
+  //     setBooks((prevBooks) =>
+  //       prevBooks.map((book) =>
+  //         book._id === id ? { ...book, loading: false } : book
+  //       )
+  //     );
+  //   }
+  // }
+
+  async function handleRemove(id) {
+    console.log(id)
+    // try {
+      await axios.delete(`${SERVER}/books/${id}`);
+      setBooks((prevBooks) => prevBooks.filter((book) => book._id !== id));
+    // } catch (error) {
+    //   console.log(error);
+    //   setError('Failed to remove the book.');
+    // }
   }
+  
 
   function handleEdit(book) {
     setEditBook(book);
@@ -66,7 +81,7 @@ function BestBooks() {
 
   useEffect(() => {
     getBooks();
-  }, [books]);
+  }, []);
 
   /* TODO: render all the books in a Carousel */
 
